@@ -7,15 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 public class Main extends HttpServlet {
 
-  List<ByteBuffer> buffers = new ArrayList<>();
+  List<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     // leak some direct memory buffers
-    buffers.add(ByteBuffer.allocateDirect(5120000));
+    buffers.add(ByteBuffer.allocateDirect(40000000));
     resp.getWriter().print("Direct Buffers: " + buffers.size());
   }
 
