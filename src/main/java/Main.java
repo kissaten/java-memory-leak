@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Main extends HttpServlet {
 
-  List<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
+  List<ByteBuffer> buffers = Collections.synchronizedList(new ArrayList<ByteBuffer>());
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
