@@ -18,7 +18,7 @@ public class Main extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     // leak some direct memory buffers
     buffers.add(ByteBuffer.allocateDirect(40000000));
-    resp.getWriter().print("Direct Buffers: " + buffers.size());
+    resp.getWriter().print("Direct Memory Buffers: " + buffers.size());
   }
 
   public static void main(String[] args) throws Exception{
