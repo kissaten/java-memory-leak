@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.ByteBuffer;
 import java.io.IOException;
 import java.util.*;
 
@@ -15,6 +16,18 @@ public class Main extends HttpServlet {
   static final Integer ARRAY_SIZE = METABYTE * 50;
 
   List<byte[]> bytes = Collections.synchronizedList(new ArrayList<byte[]>());
+
+  List<ByteBuffer> buffers = Collections.synchronizedList(new ArrayList<ByteBuffer>());
+
+  public Main() {
+    // seed the memory use
+    buffers.add(ByteBuffer.allocateDirect(40000000));
+    for (int i = 0; i < 3; i++) {
+      byte[] b = new byte[ARRAY_SIZE];
+      new Random().nextBytes(b);
+      bytes.add(b);
+    }
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
